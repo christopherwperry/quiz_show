@@ -1,0 +1,26 @@
+<h1>Login</h1>
+
+
+
+<% if current_user %>
+  You are now logged in as <%= current_user.email %>.
+  <%= link_to "Log out", session_path, method: :destroy %>
+<% else %>
+  You are not logged in
+<% end %>
+
+<%= form_tag session_path do %>
+  Username: <%= text_field_tag :username %>
+  Password: <%= password_field_tag :password %>
+<%= submit_tag "Submit" %>
+
+
+<% if @user.errors.any? %>
+<div id="error_explanation">
+ <ul>
+  <% @user.errors.full_messages.each do |msg| %>
+  <li><%= msg %></li>
+  <% end %>
+ </ul>
+</div>
+<% end %>
