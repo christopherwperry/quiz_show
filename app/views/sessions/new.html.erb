@@ -1,0 +1,14 @@
+<h1>Login</h1>
+
+<% if current_user %>
+  You are now logged in as: <%= current_user.username %>.
+  <%= link_to 'Log Out', session_path(current_user), :method => :delete %>.
+<% else %>
+  You are not logged in.
+<% end %>
+
+<%= form_tag session_path do %>
+  Username: <%= text_field_tag :username %>
+  Password: <%= password_field_tag :password %>
+  <%= submit_tag "Submit" %>
+<% end %>
