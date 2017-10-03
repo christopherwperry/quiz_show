@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: 'sessions#new'
+  resource :session, only: [:new, :create, :destroy]
   resources :quizzes do
     resources :questions, only: [:create, :edit, :destroy]  do
       resources :answers, only: [:create, :edit, :destroy]
@@ -6,7 +8,6 @@ Rails.application.routes.draw do
   end
   resources :users, except: [:index] do
     collection do
-      post :login
     end
   end
 
