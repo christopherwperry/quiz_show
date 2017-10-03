@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
-  before_action :authenticate, only: [:create, :update, :destroy, :publish]
+  before_action :current_user, only: [:create, :update, :destroy, :publish]
   before_action :get_user, only: [:create, :update, :publish]
 
   def index

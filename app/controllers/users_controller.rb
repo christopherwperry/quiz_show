@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :current_user, only: [:destroy, :publish]
 
   def new
     @user = User.new
@@ -19,7 +20,20 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    render 'show'
+    if @user == @current_user or @current_user.is_admin?
+      render 'show'
+    else
+      redirect_to @current_user
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    if @user == @current_user
+      @user.destroy
+      redirect_to '/'
+    else
+      redirect_to '/'
+    end
   end
 
   private
