@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  resources :result_answers
+  resources :result_quizzes
   root to: 'sessions#new'
   resource :session, only: [:new, :create, :destroy]
   resources :quizzes do
-    resources :questions, only: [:create, :edit, :destroy]  do
+    post :publish
+    resources :questions, only: [:create, :edit, :destroy, :show]  do
       resources :answers, only: [:create, :edit, :destroy]
     end
   end

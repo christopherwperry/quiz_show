@@ -17,10 +17,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def login
-    render 'login'
-  end
-
   def show
     @user = User.find(params[:id])
     render 'show'
@@ -30,5 +26,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :password)
+  end
+
+  def get_available_quizzes
+    # @quizzes = Quiz.where.not(:published?: false, :user_id: params[:id])
   end
 end

@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = @quiz.questions.build(question_params)
-    @question.user = current_user
+    @question.user = @current_user
 
     if @question.save
       redirect_to @question
@@ -21,7 +21,7 @@ class QuestionsController < ApplicationController
   def update
     @question = @quiz.questions.find(params[:id])
 
-    if @question.user == current_user
+    if @question.user == @current_user
       @question.update!(question_params)
       redirect_to @question
     else
@@ -33,7 +33,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question = @quiz.questions.find(params[:id])
 
-    if @question.user == current_user
+    if @question.user == @current_user
       @question.destroy
       redirect_to @quiz
     else
