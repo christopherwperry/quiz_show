@@ -17,6 +17,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def login
+    render 'login'
+  end
+
   def show
     @user = User.find(params[:id])
     render 'show'

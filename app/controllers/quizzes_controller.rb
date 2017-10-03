@@ -1,5 +1,6 @@
 class QuizzesController < ApplicationController
   before_action :authenticate, only: [:create, :update, :destroy]
+  before_action :get_user, only: [:create, :update]
 
   def index
     @quizzes = Quiz.all
@@ -10,13 +11,16 @@ class QuizzesController < ApplicationController
   end
 
   def create
-    @Quiz = Quiz.create(quiz_params)
-    @quiz.user = current_user
-    if @quiz.save
-      redirect_to users_path
+    if @user.is_admin?
+      @quiz = Quiz.create(quiz_params)
+      @quiz.user = current_user
+      if @quiz.save
+        redirect_to users_path
+      else
+        render 'new'
+      end
     else
-      render 'new'
-    end
+      redirect_to quizzes_path
   end
 
   def update
@@ -43,6 +47,10 @@ class QuizzesController < ApplicationController
 
   def quiz_params
     params.require(:quiz).permit(:title, :total_points, :type, :published)
+  end
+
+  def get_user
+    @user = current_user
   end
 
 end
