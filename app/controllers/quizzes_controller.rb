@@ -10,24 +10,22 @@ class QuizzesController < ApplicationController
   end
 
   def create
-    @Quiz = Question.create(quiz_params)
+    @Quiz = Quiz.create(quiz_params)
     @quiz.user = current_user
     if @quiz.save
-      render 'show'
+      redirect_to users_path
     else
-      render json: {
-        errors: @quiz.errors
-      }, status: :bad_request
+      render 'new'
     end
   end
 
   def update
     @quiz = Quiz.find(params[:id])
-    if @quiz.user == current_user
+    if !@quiz.published? && @quiz.user == current_user
       @quiz.update!(quiz_params)
-      render :show
+      redirect_to quizzes_path
     else
-      render json: {error: "You are not authorized to update this question"}, status: :unauthorized
+      render 'edit'
     end
   end
 
@@ -35,9 +33,9 @@ class QuizzesController < ApplicationController
     @quiz = Quiz.find(params[:id])
     if @quiz.user == current_user
       @quiz.destroy
-      render json: {deleted: true}
+      redirect_to users_path
     else
-      render json: {error: "You are not authorized to delete this question"}, status: :unauthorized
+      render 'show'
     end
   end
 
