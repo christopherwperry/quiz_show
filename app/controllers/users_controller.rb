@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    render 'index'
   end
 
   def create
@@ -20,10 +21,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    if @user == @current_user or @current_user.is_admin?
+    if @user == current_user or current_user.is_admin?
       render 'show'
     else
-      redirect_to @current_user
+      redirect_to users_path
+    end
   end
 
   def destroy
@@ -36,13 +38,12 @@ class UsersController < ApplicationController
     end
   end
 
+
+
   private
 
   def user_params
     params.require(:user).permit(:username, :password)
   end
 
-  def get_available_quizzes
-    # @quizzes = Quiz.where.not(:published?: false, :user_id: params[:id])
-  end
 end

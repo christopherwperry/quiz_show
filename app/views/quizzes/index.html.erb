@@ -11,15 +11,15 @@
     <th>URL</th>
   </tr>
 
-  <% @books.each do |book| %>
+  <% @quizzes.each do |quiz| %>
     <tr>
-      <td><%= book.title %></td>
-      <td><%= book.author %></td>
-      <td><%= book.description %></td>
-      <td><%= book.url %></td>
-      <td><%= link_to 'Show', book_path(book) %></td>
-      <td><%= link_to 'Edit', edit_book_path(book) %></td>
-      <td><%= link_to 'Destroy', book_path(book),
+      <td><%= quiz.title %></td>
+      <td><%= quiz.author %></td>
+      <td><%= quiz.description %></td>
+      <td><%= quiz.url %></td>
+      <td><%= link_to 'Show', quiz_path(quiz) %></td>
+      <td><%= link_to 'Edit', edit_quiz_path(quiz) %></td>
+      <td><%= link_to 'Destroy', quiz_path(quiz),
         method: :delete,
         data: { confirm: 'Are you sure?' } %></td>
     </tr>
