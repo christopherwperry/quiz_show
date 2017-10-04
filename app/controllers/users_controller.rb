@@ -42,7 +42,4 @@ class UsersController < ApplicationController
     params.require(:user).permit(:username, :password)
   end
 
-  def get_available_quizzes
-    # @quizzes = Quiz.where.not(:published?: false, :user_id: params[:id])
-  end
 end
