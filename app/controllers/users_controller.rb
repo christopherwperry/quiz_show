@@ -1,14 +1,32 @@
 class UsersController < ApplicationController
-  before_action :current_user, only: [:destroy, :publish]
+  before_action :current_user, only: [:index, :destroy, :publish]
 
   def new
     @user = User.new
   end
 
   def index
-    @users = User.all
-    render 'index'
+    if current_user
+      @user = current_user
+      if current_user.is_admin?
+        @users = User.all
+        render 'index'
+      else
+        redirect_to user_path(@user)
+      end
+    else
+      redirect_to root_path
+    end
   end
+
+
+
+    # elsif current_user
+    #   @user = current_user
+    #   redirect_to user_path(@user)
+    # else
+    #   redirect_to root_path
+    # end
 
   def create
     @user = User.new(user_params)
