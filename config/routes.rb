@@ -9,6 +9,6 @@ Rails.application.routes.draw do
       resources :answers, only: [:create, :edit, :destroy]
     end
   end
-  resources :users, except: [:index, :edit]
+  resources :users #, except: [:index, :edit]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
