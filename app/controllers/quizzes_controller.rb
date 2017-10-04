@@ -13,7 +13,7 @@ class QuizzesController < ApplicationController
   def create
     if @user.is_admin?
       @quiz = Quiz.create(quiz_params)
-      @quiz.user = @current_user
+      @quiz.user = current_user
       if @quiz.save
         redirect_to users_path
       else
@@ -26,7 +26,7 @@ class QuizzesController < ApplicationController
 
   def update
     @quiz = Quiz.find(params[:id])
-    if !@quiz.published? && @quiz.user == @current_user
+    if !@quiz.published? && @quiz.user == current_user
       @quiz.update!(quiz_params)
       redirect_to quiz_path
     else
@@ -36,7 +36,7 @@ class QuizzesController < ApplicationController
 
   def publish
     @quiz = Quiz.find(params[:id])
-    if !@quiz.published? && @quiz.user == @current_user
+    if !@quiz.published? && @quiz.user == current_user
       @quiz.update!(quiz_params)
       # @quiz.published? == true
       @quiz.save!
@@ -48,7 +48,7 @@ class QuizzesController < ApplicationController
 
   def destroy
     @quiz = Quiz.find(params[:id])
-    if @quiz.user == @current_user
+    if @quiz.user == current_user
       @quiz.destroy
       redirect_to users_path
     else
@@ -63,7 +63,7 @@ class QuizzesController < ApplicationController
   end
 
   def get_user
-    @user = @current_user
+    @user = current_user
   end
 
 end

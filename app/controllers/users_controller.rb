@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    if @user == @current_user
+    if @user == current_user
       @user.destroy
       redirect_to '/'
     else

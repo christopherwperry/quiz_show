@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
 
   def create
     @answer = @question.answers.build(answer_params)
-    @answer.user = @current_user
+    @answer.user = current_user
 
     if @answer.save
       redirect_to @question
@@ -17,7 +17,7 @@ class AnswersController < ApplicationController
   def update
     @answer = @question.answers.find(params[:id])
 
-    if @answer.user == @current_user
+    if @answer.user == current_user
       @answer.update!(answer_params)
       redirect_to @question
     else
@@ -29,7 +29,7 @@ class AnswersController < ApplicationController
   def destroy
     @answer = @question.answers.find(params[:id])
 
-    if @answer.user == @current_user
+    if @answer.user == current_user
       @answer.destroy
       redirect_to @question
     else
